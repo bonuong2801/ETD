@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Solar \u0026 Battery Services",
+  "description": "A full-stack web application for solar panel installation and custom battery packs, featuring a public site and an admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

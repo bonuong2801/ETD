@@ -1,0 +1,25 @@
+{
+  "entities": {
+    "SanPham": {
+      "title": "SanPham",
+      "description": "Thông tin sản phẩm thiết bị mặt trời và pin",
+      "type": "object",
+      "properties": {
+        "ten_san_pham": { "type": "string", "description": "Tên sản phẩm" },
+        "gia": { "type": "string", "description": "Giá hoặc khoảng giá sản phẩm" },
+        "chiet_khau": { "type": "string", "description": "Tỷ lệ chiết khấu (%)" },
+        "mo_ta": { "type": "string", "description": "Mô tả chi tiết sản phẩm" },
+        "loai_san_pham": { "type": "string", "description": "Phân loại sản phẩm (DichVuMatTroi, PinLuuTru, GiaDungKhac)" },
+        "hinh_anh": { "type": "string", "description": "Đường dẫn hình ảnh" },
+        "created_at": { "type": "integer", "description": "Thời gian tạo (timestamp)" }
+      },
+      "required": ["ten_san_pham", "gia"]
+    }
+  },
+  "firestore": {
+    "/SanPham/{productId}": {
+      "schema": "SanPham",
+      "description": "Danh sách sản phẩm dịch vụ solar và pin"
+    }
+  }
+}
