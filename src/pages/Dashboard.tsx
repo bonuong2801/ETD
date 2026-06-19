@@ -61,7 +61,7 @@ export default function Dashboard() {
 
   const handleSave = async (product: any) => {
     try {
-      await fetch(`/api/products/${product.id}`, {
+      const res = await fetch(`/api/products/${product.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -76,32 +76,42 @@ export default function Dashboard() {
           chiet_khau: editDiscount
         })
       });
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(`Lỗi: ${errorData.error}`);
+        return;
+      }
       setIsEditing(null);
       fetchProducts();
     } catch (e) {
       console.error(e);
-      alert("Lỗi cập nhật!");
+      alert("Lỗi kết nối!");
     }
   };
 
   const handleDelete = async (id: number) => {
     if (!confirm("Bạn có chắc muốn xóa sản phẩm này?")) return;
     try {
-      await fetch(`/api/products/${id}`, {
+      const res = await fetch(`/api/products/${id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
       });
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(`Lỗi: ${errorData.error}`);
+        return;
+      }
       fetchProducts();
     } catch (e) {
       console.error(e);
-      alert("Lỗi khi xóa!");
+      alert("Lỗi kết nối!");
     }
   };
 
   const handleAdd = async (e: any) => {
     e.preventDefault();
     try {
-      await fetch("/api/products", {
+      const res = await fetch("/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -116,6 +126,11 @@ export default function Dashboard() {
           loai_san_pham: newType
         })
       });
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(`Lỗi: ${errorData.error}`);
+        return;
+      }
       setShowAddForm(false);
       // Reset form
       setNewName("");
@@ -126,7 +141,7 @@ export default function Dashboard() {
       fetchProducts();
     } catch (e) {
       console.error(e);
-      alert("Lỗi thêm sản phẩm");
+      alert("Lỗi kết nối!");
     }
   };
 
