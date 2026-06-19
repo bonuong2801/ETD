@@ -9,14 +9,24 @@ import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, o
 import fs from "fs";
 
 let firebaseConfig: any = {
-  projectId: process.env.FIREBASE_PROJECT_ID || 'theta-unity-wbndl'
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  appId: process.env.FIREBASE_APP_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  firestoreDatabaseId: process.env.FIREBASE_FIRESTORE_DATABASE_ID,
 };
+
+// Loại bỏ các giá trị undefined để không đè lên config từ file nếu không có biến môi trường
+Object.keys(firebaseConfig).forEach(key => firebaseConfig[key] === undefined && delete firebaseConfig[key]);
 
 try {
   const configContent = fs.readFileSync('firebase-applet-config.json', 'utf-8');
-  firebaseConfig = JSON.parse(configContent);
+  const fileConfig = JSON.parse(configContent);
+  firebaseConfig = { ...fileConfig, ...firebaseConfig };
 } catch (e) {
-  console.warn("Could not read firebase-applet-config.json");
+  console.warn("Không tìm thấy firebase-applet-config.json. Đang sử dụng Environment Variables.");
 }
 
 let mockProducts: any[] = [
@@ -66,13 +76,10 @@ let db: any = null;
 
 async function connectFirebase() {
   try {
-    const appInstance = initializeApp(firebaseConfig);
-    const dbId = firebaseConfig.firestoreDatabaseId && firebaseConfig.firestoreDatabaseId !== "(default)"
-      ? firebaseConfig.firestoreDatabaseId
-      : undefined;
-    db = getFirestore(appInstance, dbId);
-    
-    const snapshot = await getDocs(query(collection(db, "SanPham"), limit(1))).catch((e: any) => { 
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app, firebaseConfig.firestoreDatabaseId || "(default)");
+    const q = query(collection(db, "SanPham"), limit(1));
+    const snapshot = await getDocs(q).catch((e: any) => { 
         console.error("Test fetch failed", e);
         return null; 
     });
@@ -172,7 +179,7 @@ async function startServer() {
           gia,
           chiet_khau: chiet_khau || "0",
           mo_ta,
-          hinh_anh: hinh_anh || "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800",
+          hinh_anh,
           loai_san_pham: loai_san_pham || 'DichVuMatTroi',
           created_at: Date.now()
         };
@@ -193,7 +200,7 @@ async function startServer() {
     
     if (db) {
       try {
-         await updateDoc(doc(db, "SanPham", id), {
+        await updateDoc(doc(db, "SanPham", id), {
           ten_san_pham,
           gia,
           chiet_khau: chiet_khau || "0",
