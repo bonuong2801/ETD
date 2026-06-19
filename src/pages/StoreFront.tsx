@@ -5,7 +5,7 @@ export default function StoreFront() {
   const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('/api/products')
+    fetch(`/api/products?t=${new Date().getTime()}`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setProducts(data);
@@ -70,7 +70,7 @@ export default function StoreFront() {
              transition={{ duration: 0.8, ease: "easeOut" }}
              className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8"
           >
-            Năng lượng của tương lai <br/> <span className="text-emerald-400 inline-block mt-2">Điện mặt trời & Pin lưu trữ</span>
+            Năng lượng của tương lai với <br/> <span className="text-emerald-400 inline-block mt-2">Điện mặt trời & Pin lưu trữ</span>
           </motion.h1>
           <motion.p 
              initial={{ opacity: 0, y: 20 }}
@@ -78,7 +78,7 @@ export default function StoreFront() {
              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
              className="text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light"
           >
-            Dịch vụ lắp đặt năng lượng mặt trời chuyên nghiệp và cung cấp pin lưu trữ đóng theo yêu cầu với độ bền vượt trội.
+            Dịch vụ lắp đặt năng lượng mặt trời chuyên nghiệp và cung cấp khối pin lưu trữ đóng theo yêu cầu với độ bền vượt trội.
           </motion.p>
           <motion.a 
              initial={{ opacity: 0, scale: 0.9 }}
@@ -91,7 +91,7 @@ export default function StoreFront() {
           </motion.a>
         </div>
         <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none mix-blend-luminosity">
-          <img src="/images.jpg" alt="Solar background" className="w-full h-full object-cover" />
+          <img src="https://images.unsplash.com/photo-1588612140409-bcdd1ac1d02d?auto=format&fit=crop&q=80&w=2000" alt="Solar background" className="w-full h-full object-cover" />
         </div>
       </section>
 
@@ -167,13 +167,13 @@ export default function StoreFront() {
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-emerald-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
           <div className="mb-12 relative z-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Liên Hệ Tư Vấn Trực Tiếp</h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">Bấm vào nút bên dưới hoặc gọi hotline để được chuyên gia tư vấn nhanh chóng nhất.</p>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto">Bạn không cần để lại thông tin phức tạp. Bấm vào nút bên dưới hoặc gọi hotline để được chuyên gia tư vấn nhanh chóng nhất.</p>
           </div>
 
           <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-6 relative z-10">
             <a href="tel:0901234567" className="w-full md:w-auto bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-3">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-              Hotline: 079 689 6777
+              Hotline: 090 123 4567
             </a>
             <a href="https://zalo.me/0901234567" target="_blank" rel="noopener noreferrer" className="w-full md:w-auto bg-[#0068FF] hover:bg-[#0055D4] text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-3">
                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 1.637.4 3.174 1.106 4.51l-1.393 4.22a.75.75 0 00.942.942l4.22-1.393C8.211 21.328 9.94 21.8 11.8 21.8c5.523 0 10-4.477 10-10S17.323 2 11.8 2zm-.233 13.064c-.18.06-.39-.028-.532-.14l-1.503-1.187-1.12.83c-.22.164-.525.105-.67-.132l-1.428-2.316c-.156-.254-.084-.582.163-.739a.75.75 0 01.378-.052l1.633 1.054a.5.5 0 00.597-.042l1.242-.924c.22-.164.526-.104.671.133l1.428 2.315c.156.253.084.582-.163.739l-.696.461z" clipRule="evenodd" /></svg>

@@ -152,6 +152,10 @@ async function startServer() {
   });
 
   app.get("/api/products", async (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    
     if (db) {
       try {
         const q = query(collection(db, "SanPham"), orderBy("created_at", "desc"));

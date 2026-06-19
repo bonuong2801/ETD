@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Navigate } from "react-router";
 
 export default function Dashboard() {
@@ -36,7 +36,7 @@ export default function Dashboard() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("/api/products");
+      const res = await fetch(`/api/products?t=${new Date().getTime()}`);
       const data = await res.json();
       if (Array.isArray(data)) {
         setProducts(data);
