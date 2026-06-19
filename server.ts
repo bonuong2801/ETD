@@ -190,9 +190,9 @@ async function startServer() {
         };
         await setDoc(newDocRef, productData);
         res.json({ id: newDocRef.id, message: "Thêm thành công" });
-      } catch (err) {
+      } catch (err: any) {
         console.error("Firebase write failed", err);
-        res.status(500).json({ error: "Lỗi khi lưu vào Database" });
+        res.status(500).json({ error: "Lỗi khi lưu vào Database: " + (err.message || "") });
       }
     } else {
       res.status(500).json({ error: "Chưa kết nối Database" });
